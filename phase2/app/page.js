@@ -2,6 +2,7 @@ import Image from "next/image";
 import Footer from "./components/footer";
 import Navbar from "./components/navbar";
 import ItemList from "./components/itemlist";
+import SearchBar from "./components/searchbar";
 
 export default function Layout({ children }) {
   return (
