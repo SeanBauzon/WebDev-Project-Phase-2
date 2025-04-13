@@ -17,7 +17,7 @@ export default function SearchBar({ onSearch }) {
         placeholder="Search products..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="px-3 py-2 border border-gray-300 rounded-md w-full"
+        className="bg-white px-3 py-2 border border-gray-300 rounded-md w-full text-black"
       />
     </form>
   );

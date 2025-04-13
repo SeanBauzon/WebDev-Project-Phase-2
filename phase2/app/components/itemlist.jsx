@@ -56,7 +56,7 @@ const ItemList = () => {
             alt={product.name}
             className="w-full h-32 object-cover rounded-md mb-4"
           />
-          <h3 className="text-lg font-semibold">{product.name}</h3>
+          <h3 className="text-lg font-semibold text-black">{product.name}</h3>
           <p className="text-sm text-gray-500">{product.description}</p>
           <p className="mt-2 font-bold text-gray-800">{product.price}</p>
           <button className="mt-2 bg-blue-500 text-white py-1 px-4 rounded-full">Add to Cart</button>
