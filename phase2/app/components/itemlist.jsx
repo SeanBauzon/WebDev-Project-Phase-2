@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const ItemList = () => {
+const ItemList = ({ selectedCategory }) => {
   const mockProducts = [
     {
       _id: "1",
@@ -12,6 +12,7 @@ const ItemList = () => {
       description: "144Hz, 27-inch display",
       price: "$249.99",
       image: "/images/monitor.jpg",
+      category: "Monitor",
     },
     {
       _id: "2",
@@ -19,6 +20,7 @@ const ItemList = () => {
       description: "RGB, Blue switches",
       price: "$89.99",
       image: "/images/keyboard.jpg",
+      category: "Keyboard",
     },
     {
       _id: "3",
@@ -26,6 +28,7 @@ const ItemList = () => {
       description: "Ergonomic and wireless",
       price: "$49.99",
       image: "/images/mouse.jpg",
+      category: "Mouse",
     },
     {
       _id: "4",
@@ -33,6 +36,7 @@ const ItemList = () => {
       description: "Latest model",
       price: "$799.99",
       image: "/images/smartphone.jpg",
+      category: "Smartphone",
     },
     {
       _id: "5",
@@ -40,17 +44,17 @@ const ItemList = () => {
       description: "Portable and waterproof",
       price: "$99.99",
       image: "/images/speaker.jpg",
+      category: "Speaker",
     },
   ];
 
-  const [products, setProducts] = useState([]);
+  const filteredProducts = selectedCategory
+    ? mockProducts.filter((p) => p.category === selectedCategory)
+    : mockProducts;
+
   const [wishlist, setWishlist] = useState([]);
   const [status, setStatus] = useState("");
   const router = useRouter();
-
-  useEffect(() => {
-    setProducts(mockProducts);
-  }, []);
 
   const handleAddToWishlist = async (product) => {
     if (wishlist.includes(product._id)) return;
@@ -94,7 +98,7 @@ const ItemList = () => {
       {status && <p className="text-green-600 font-medium mb-4">{status}</p>}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div
             key={product._id}
             className="bg-white rounded-lg shadow-md p-4 hover:shadow-xl transition-shadow"

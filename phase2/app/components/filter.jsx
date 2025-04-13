@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
 
-const FilterPanel = ({ selectedCategory, setSelectedCategory }) => {
+const Filter = ({ selectedCategory, setSelectedCategory }) => {
   return (
     <div className="p-4">
       <label className="block mb-2 font-medium">Filter by Category:</label>
       <select
         value={selectedCategory}
         onChange={(e) => setSelectedCategory(e.target.value)}
-        className="w-full border border-gray-300 rounded-md px-4 py-2"
+        className="w-full sm:w-48 border bg-white text-black border-gray-300 rounded-md px-4 py-2"
       >
         <option value="">All</option>
         <option value="Monitor">Monitor</option>
@@ -21,4 +21,4 @@ const FilterPanel = ({ selectedCategory, setSelectedCategory }) => {
   );
 };
 
-export default FilterPanel;
+export default Filter;
