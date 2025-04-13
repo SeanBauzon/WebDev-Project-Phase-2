@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model WishlistItem {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId   String   @unique
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +20,11 @@ export default function Navbar() {
 
         {/* Desktop navigation */}
         <div className="hidden md:flex gap-6 items-center">
-          <Link href="/products" className="hover:text-gray-200 transition">Products</Link>
-          <Link href="/wishlist" className="hover:text-gray-200 transition">Wishlist</Link>
-          <Link href="/cart" className="hover:text-gray-200 transition">Cart</Link>
-          <Link href="/login" className="hover:text-gray-200 transition">Login</Link>
+          <Link href="/OrderHistoryPage" className="hover:text-gray-200 transition">Order History</Link>
+          <Link href="/" className="hover:text-gray-200 transition">Products</Link>
+          <Link href="/WishlistPage" className="hover:text-gray-200 transition">Wishlist</Link>
+          <Link href="/CartPage" className="hover:text-gray-200 transition">Cart</Link>
+          <Link href="/ProfilePage" className="hover:text-gray-200 transition">Profile</Link>
         </div>
 
         {/* Mobile toggle button */}
