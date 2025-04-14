@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import ItemList from "./components/Itemlist";
-import SearchBar from "./components/Searchbar";
+import Navbar from "./components/NavBar";
+import ItemList from "./components/ItemList";
+import SearchBar from "./components/SearchBar";
 import Filter from "./components/Filter";
 
 export default function Layout({ children }) {
