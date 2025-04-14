@@ -1,12 +1,22 @@
 "use client";
 
+/*
+  Author: Ronray 
+  Date: April 13
+  Program: Navbar Component
+
+  Handles the navigation bar for the website. It displays different links for pages such as "Products", "Wishlist", "Cart", and "Profile". 
+  The navigation layout adjusts depending on the screen size, desktop links are always visible, while mobile users can toggle a collapsible menu. 
+  The component also handles the visibility of the mobile menu based on user interaction with the menu button. It uses React state to track whether the mobile menu is open or closed.
+*/
+
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
+  // Toggle mobile menu visibility
   const toggleMenu = () => {
     setIsOpen(prev => !prev);
   };

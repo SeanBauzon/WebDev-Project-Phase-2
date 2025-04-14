@@ -1,10 +1,21 @@
 "use client";
 
+/*
+  Author: Ronray 
+  Date: April 13
+  Program: SearchBar 
+
+  This component provides a search bar where users can type in text to search for products. It listens for input changes and submits the search term when the form is submitted. 
+  The search term is passed to the parent component through the `onSearch` function. The component takes care of managing the input state and handling form submission. It also styles 
+  the input and button to give a clean user experience.
+*/
+
 import { useState } from "react";
 
 export default function SearchBar({ onSearch }) {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(""); // Store the current search input
 
+    // Handle form submission, prevent default behavior and pass the search term to parent
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -15,7 +26,7 @@ export default function SearchBar({ onSearch }) {
       onSearch(""); // Clear results if input is empty
     }
   };
-
+// ui
   return (
     <form onSubmit={handleSubmit} className="flex justify-center mb-6">
       <div className="relative w-full max-w-md mt-3">

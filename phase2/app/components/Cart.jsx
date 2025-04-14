@@ -1,17 +1,26 @@
 "use client";
+/*
+  Author: Ronray 
+  Date: April 13
+  Program: Shopping Cart Page 
 
+  Shows the user's shopping cart in a clean and simple way. When the page loads, it automatically fetches the current cart items
+  from the server—no need for the user to do anything. Behind the scenes, it adds up all the item prices and multiplies them by quantity to show a total cost. 
+  If the cart’s empty, it gently lets the user know. Otherwise, it lists each product with its name, price, and quantity, and gives the user a checkout button to move forward. 
+  It’s designed to make reviewing purchases feel smooth and easy.
+*/
 import { useEffect, useState } from "react";
-
+  // Initialize state for cart items
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
-
+  // Fetch cart items from the server when the component loads
   useEffect(() => {
     fetch("/api/cart")
       .then((res) => res.json())
       .then((data) => setCartItems(data))
       .catch((err) => console.error("Failed to load cart", err));
   }, []);
-
+  // Calculate the total price of all items in the cart
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (

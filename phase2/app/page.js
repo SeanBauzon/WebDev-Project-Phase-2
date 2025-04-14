@@ -1,5 +1,14 @@
 "use client";
-
+/*
+  Author: Ronray 
+  Date: April 13
+  Program: Main Page 
+  Description:  
+  This is the main layout for a simple online electronics store built using React and Next.js. It includes a navigation bar at the top, a search bar in the center, 
+  and a category filter on the side. Users can interact by typing keywords into the search bar or selecting a category to narrow down what they're looking for. Behind the scenes, 
+  these inputs are handled using state hooks, which filter and update the list of items shown on the page in real time. The result is a clean, responsive layout that shows only the 
+  products that match what the user searched or filtered for. It wraps everything in a consistent design with a footer at the bottom.
+*/
 import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";

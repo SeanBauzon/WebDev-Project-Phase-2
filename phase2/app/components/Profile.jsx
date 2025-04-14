@@ -1,5 +1,16 @@
 "use client";
 
+// Name: Ronray  
+//  Date: April 13
+  
+//  Shows the logged-in user's profile page. When the page loads, it sends a request to 
+// the server to get the user's information like name, email, and profile picture. While the data is loading, 
+// the user sees a "Loading..." message. If there's a problem (like the server fails to respond), it shows an error message.  
+ 
+// Once everything loads successfully, the profile details are displayed nicely in a card layout.  
+// This page doesn't take any input directly from the user, but it pulls info from the `/api/profile` endpoint.  
+//   It's a simple way to let users view their account details in a clean and friendly format.
+
 import React, { useEffect, useState } from "react";
 
 export default function ProfilePage() {

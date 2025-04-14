@@ -1,11 +1,22 @@
 "use client";
 
+/*
+  Author: Ronray 
+  Date: April 13, 2025
+  Program: ItemList 
+
+  Displays a list of products that can be filtered by category or searched by name.
+  Users can view product details, add products to their wishlist, and add them to their cart.
+  It handles user interaction feedback and updates the UI accordingly.
+*/
+
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const ItemList = ({ selectedCategory, searchTerm = "" }) => {
+  // Mock product data (replace with real API calls in production)
   const mockProducts = [
     {
       _id: "1",
@@ -49,6 +60,7 @@ const ItemList = ({ selectedCategory, searchTerm = "" }) => {
     },
   ];
 
+  // Filter products based on selected category and search term
   const filteredProducts = mockProducts.filter((product) => {
     const matchesCategory = selectedCategory
       ? product.category === selectedCategory
@@ -60,19 +72,19 @@ const ItemList = ({ selectedCategory, searchTerm = "" }) => {
     return matchesCategory && matchesSearch;
   });
 
-  const [wishlist, setWishlist] = useState([]);
-  const [status, setStatus] = useState("");
+  const [wishlist, setWishlist] = useState([]); // Track which items are in wishlist
+  const [status, setStatus] = useState(""); // Status message for feedback
   const router = useRouter();
 
+  // Add product to wishlist
   const handleAddToWishlist = async (product) => {
+    // Prevent adding duplicates
     if (wishlist.includes(product._id)) return;
 
     try {
       const res = await fetch("/api/wishlist", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           productId: product._id,
           name: product.name,
@@ -89,6 +101,7 @@ const ItemList = ({ selectedCategory, searchTerm = "" }) => {
         setStatus(data.error || "Could not add to wishlist.");
       }
 
+      // Clear message after a short delay
       setTimeout(() => setStatus(""), 2000);
     } catch (error) {
       console.error("Frontend error:", error);
@@ -97,6 +110,7 @@ const ItemList = ({ selectedCategory, searchTerm = "" }) => {
     }
   };
 
+  // Add product to cart
   const handleAddToCart = async (product) => {
     try {
       const res = await fetch("/api/cart", {
@@ -105,7 +119,7 @@ const ItemList = ({ selectedCategory, searchTerm = "" }) => {
         body: JSON.stringify({
           productId: product._id,
           name: product.name,
-          price: product.price.replace("$", ""),
+          price: product.price.replace("$", ""), // Convert price to number
         }),
       });
 
@@ -127,14 +141,17 @@ const ItemList = ({ selectedCategory, searchTerm = "" }) => {
 
   return (
     <div className="px-4 py-6">
+      {/* Feedback message */}
       {status && <p className="text-green-600 font-medium mb-4">{status}</p>}
 
+      {/* Product Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {filteredProducts.map((product) => (
           <div
             key={product._id}
             className="bg-white rounded-lg shadow-md p-4 hover:shadow-xl transition-shadow"
           >
+            {/* Link to product detail page */}
             <Link href={`/ProductPage/${product._id}`} passHref>
               <img
                 src={product.image}
@@ -146,8 +163,9 @@ const ItemList = ({ selectedCategory, searchTerm = "" }) => {
               <p className="mt-2 font-bold text-gray-800">{product.price}</p>
             </Link>
 
+            {/* Action buttons */}
             <div className="flex gap-3 mt-3 justify-center">
-              {/* Add to Cart */}
+              {/* Add to Cart button */}
               <button
                 onClick={() => handleAddToCart(product)}
                 className="hover:scale-105 transition-transform"
@@ -160,10 +178,10 @@ const ItemList = ({ selectedCategory, searchTerm = "" }) => {
                 />
               </button>
 
-              {/* Add to Wishlist */}
+              {/* Add to Wishlist button */}
               <button
                 onClick={() => handleAddToWishlist(product)}
-                disabled={wishlist.includes(product._id)}
+                disabled={wishlist.includes(product._id)} // Disable if already added
                 className={`hover:scale-105 transition-transform ${
                   wishlist.includes(product._id)
                     ? "opacity-50 cursor-not-allowed"

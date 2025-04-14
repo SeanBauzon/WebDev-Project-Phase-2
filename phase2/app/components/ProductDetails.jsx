@@ -1,8 +1,17 @@
 "use client";
+/*
+  Author: Ronray 
+  Date: April 13
+  Program: ProductDetails 
 
+  This component displays the details of a product, including its image, name, description, and price. It allows users to add the product to their cart or wishlist and submit reviews. 
+  The component receives a `product` object as a prop, which contains the product's details (id, name, description, price, image). It processes adding the product to the cart or wishlist, 
+  submitting reviews, and rendering the reviews. The product details are displayed, and users can interact with the cart/wishlist functionality or submit their reviews.
+*/
 import React, { useState } from "react";
 
 const ProductDetails = ({ product }) => {
+    // State for status message and form data
   const [status, setStatus] = useState("");
   const [reviews, setReviews] = useState([
     {
@@ -23,7 +32,7 @@ const ProductDetails = ({ product }) => {
     rating: 5,
     comment: "",
   });
-
+  // Add product to cart
   const handleAddToCart = async () => {
     try {
       const res = await fetch("/api/cart", {
@@ -50,7 +59,7 @@ const ProductDetails = ({ product }) => {
 
     setTimeout(() => setStatus(""), 2000);
   };
-
+  // Add product to wishlist
   const handleAddToWishlist = async () => {
     try {
       const res = await fetch("/api/wishlist", {
@@ -77,7 +86,7 @@ const ProductDetails = ({ product }) => {
 
     setTimeout(() => setStatus(""), 2000);
   };
-
+  // Submit a review for the product
   const handleSubmitReview = async (e) => {
     e.preventDefault();
 
@@ -107,7 +116,7 @@ const ProductDetails = ({ product }) => {
 
     setTimeout(() => setStatus(""), 2000);
   };
-
+  // Render star rating based on review rating
   const renderStars = (count) =>
     "★".repeat(count) + "☆".repeat(5 - count);
 
