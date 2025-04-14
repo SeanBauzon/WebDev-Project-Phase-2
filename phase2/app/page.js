@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import ItemList from "./components/Itemlist";
-import SearchBar from "./components/Searchbar";
-import Filter from "./components/Filter";
+import Footer from "./components/footer";
+import Navbar from "./components/navbar";
+import ItemList from "./components/itemlist";
+import SearchBar from "./components/searchbar";
+import Filter from "./components/filter";
 
 export default function Layout({ children }) {
   const [selectedCategory, setSelectedCategory] = useState("");

@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
 
 const ItemList = ({ selectedCategory }) => {
   const mockProducts = [
@@ -140,25 +142,36 @@ const ItemList = ({ selectedCategory }) => {
               <p className="mt-2 font-bold text-gray-800">{product.price}</p>
             </Link>
 
-            <div className="flex flex-col gap-2 mt-3">
-              <button
-                onClick={() => handleAddToCart(product)}
-                className="bg-blue-500 text-white py-1 px-4 hover:bg-blue-600"
-              >
-                Add to Cart
-              </button>
-              <button
-                onClick={() => handleAddToWishlist(product)}
-                disabled={wishlist.includes(product._id)}
-                className={`py-1 px-4 text-white transition ${
-                  wishlist.includes(product._id)
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-pink-500 hover:bg-pink-600"
-                }`}
-              >
-                {wishlist.includes(product._id) ? "In Wishlist" : "Add to Wishlist"}
-              </button>
-            </div>
+            <div className="flex gap-3 mt-3 justify-center">
+            {/* Add to Cart */}
+            <button className="hover:scale-105 transition-transform">
+              <Image
+                src="/shopping.svg"
+                alt="Add to Cart"
+                width={32}
+                height={32}
+              />
+            </button>
+
+            {/* Add to Wishlist */}
+            <button
+              onClick={() => handleAddToWishlist(product)}
+              disabled={wishlist.includes(product._id)}
+              className={`hover:scale-105 transition-transform ${
+                wishlist.includes(product._id)
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
+              }`}
+            >
+              <Image
+                src="/wishlist.svg"
+                alt="Add to Wishlist"
+                width={32}
+                height={32}
+              />
+            </button>
+          </div>
+
           </div>
         ))}
       </div>
