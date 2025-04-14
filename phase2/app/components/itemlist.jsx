@@ -11,15 +11,15 @@ const ItemList = ({ selectedCategory }) => {
       name: "Gaming Monitor",
       description: "144Hz, 27-inch display",
       price: "$249.99",
-      image: "/images/monitor.jpg",
+      image: "/images/GamingMonitor1.png",
       category: "Monitor",
     },
     {
       _id: "2",
-      name: "Mechanical Keyboard",
-      description: "RGB, Blue switches",
+      name: "Flexy Keyboard",
+      description: "Normal Keyboard",
       price: "$89.99",
-      image: "/images/keyboard.jpg",
+      image: "/images/Keyboard1.png",
       category: "Keyboard",
     },
     {
@@ -27,7 +27,7 @@ const ItemList = ({ selectedCategory }) => {
       name: "Wireless Mouse",
       description: "Ergonomic and wireless",
       price: "$49.99",
-      image: "/images/mouse.jpg",
+      image: "/images/Mouse1.png",
       category: "Mouse",
     },
     {
@@ -35,7 +35,7 @@ const ItemList = ({ selectedCategory }) => {
       name: "Smartphone",
       description: "Latest model",
       price: "$799.99",
-      image: "/images/smartphone.jpg",
+      image: "/images/SmartPhone1.png",
       category: "Smartphone",
     },
     {
@@ -43,7 +43,7 @@ const ItemList = ({ selectedCategory }) => {
       name: "Bluetooth Speaker",
       description: "Portable and waterproof",
       price: "$99.99",
-      image: "/images/speaker.jpg",
+      image: "/images/Speaker1.png",
       category: "Speaker",
     },
   ];
@@ -107,7 +107,7 @@ const ItemList = ({ selectedCategory }) => {
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-32 object-cover rounded-md mb-4"
+                className="w-full h-32 object-center object-contain rounded-md mb-4"
               />
               <h3 className="text-lg font-semibold text-black">
                 {product.name}
@@ -117,13 +117,13 @@ const ItemList = ({ selectedCategory }) => {
             </Link>
 
             <div className="flex flex-col gap-2 mt-3">
-              <button className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600">
+              <button className="bg-blue-500 text-white py-1 px-4 hover:bg-blue-600">
                 Add to Cart
               </button>
               <button
                 onClick={() => handleAddToWishlist(product)}
                 disabled={wishlist.includes(product._id)}
-                className={`bg-pink-500 text-white py-1 px-4 rounded-full hover:bg-pink-600 transition ${
+                className={`bg-green-400 text-white py-1 px-4 hover:bg-pink-600 transition ${
                   wishlist.includes(product._id)
                     ? "opacity-50 cursor-not-allowed"
                     : ""
