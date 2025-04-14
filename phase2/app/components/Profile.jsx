@@ -6,7 +6,7 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  
   useEffect(() => {
     async function fetchProfile() {
       try {
@@ -26,6 +26,22 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
+if (loading) {
+    return (
+      <div className="text-center mt-10 text-gray-500 font-medium">
+        Loading profile...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center mt-10 text-red-500 font-medium">
+        {error}
+      </div>
+    );
+  }
+  
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-8">
       <h2 className="text-2xl font-bold text-[#2F3E46] mb-4">My Profile</h2>
