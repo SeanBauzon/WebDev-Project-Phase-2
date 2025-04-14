@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Itemlist from "./components/Itemlist";
-import Searchbar from "./components/Searchbar";
+import ItemList from "./components/ItemList";
+import SearchBar from "./components/SearchBar";
 import Filter from "./components/Filter";
 
 export default function HomePage() {
@@ -26,7 +26,7 @@ export default function HomePage() {
         </div>
 
         <div className="w-2/4 flex justify-center">
-          <Searchbar onSearch={(term) => setSearchTerm(term)} />
+          <SearchBar onSearch={(term) => setSearchTerm(term)} />
         </div>
 
         <div className="w-1/4" />
@@ -34,7 +34,7 @@ export default function HomePage() {
 
       {/* Product Items */}
       <main className="flex-grow bg-blue-300">
-        <Itemlist selectedCategory={selectedCategory} searchTerm={searchTerm} />
+        <ItemList selectedCategory={selectedCategory} searchTerm={searchTerm} />
       </main>
 
       {/* Footer */}
