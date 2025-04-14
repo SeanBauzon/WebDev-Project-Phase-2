@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import Itemlist from "./components/Itemlist";
-import Searchbar from "./components/Searchbar";
-import Filter from "./components/Filter";
+import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
+import ItemList from "./components/Itemlist.jsx";
+import SearchBar from "./components/Searchbar.jsx";
+import Filter from "./components/Filter.jsx";
 
 export default function Layout({ children }) {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -28,7 +28,7 @@ export default function Layout({ children }) {
 
         {/* SearchBar */}
         <div className="w-2/4 flex justify-center">
-          <Searchbar onSearch={(term) => setSearchTerm(term)} />
+          <SearchBar onSearch={(term) => setSearchTerm(term)} />
         </div>
 
         <div className="w-1/4" />
@@ -36,7 +36,7 @@ export default function Layout({ children }) {
 
       {/* Item List */}
       <main className="flex-grow bg-blue-300">
-        <Itemlist selectedCategory={selectedCategory} searchTerm={searchTerm} />
+        <ItemList selectedCategory={selectedCategory} searchTerm={searchTerm} />
       </main>
 
       {/* Footer */}
