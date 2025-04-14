@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const Profile = () => {
+export default function ProfilePage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  
+
   useEffect(() => {
     async function fetchProfile() {
       try {
@@ -26,58 +26,34 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-if (loading) {
-    return (
-      <div className="text-center mt-10 text-gray-500 font-medium">
-        Loading profile...
-      </div>
-    );
-  }
+  if (loading) return <p className="p-6 text-center">Loading profile...</p>;
+  if (error) return <p className="p-6 text-center text-red-500">{error}</p>;
 
-  if (error) {
-    return (
-      <div className="text-center mt-10 text-red-500 font-medium">
-        {error}
-      </div>
-    );
-  }
-  
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-8">
       <h2 className="text-2xl font-bold text-[#2F3E46] mb-4">My Profile</h2>
-  
-      {loading ? (
-        <p className="text-gray-500">Loading profile...</p>
-      ) : error ? (
-        <p className="text-red-500">Error: {error}</p>
-      ) : !user ? (
-        <p className="text-gray-500">User not found.</p>
-      ) : (
-        <div className="flex flex-col sm:flex-row items-start gap-4">
-          <img
-            src={user.image || "/default-avatar.png"}
-            alt="Profile"
-            className="w-24 h-24 rounded-full"
-          />
-          <div>
-            <p className="text-lg text-[#354F52] font-semibold">
-              Name: <span className="font-normal">{user.name}</span>
-            </p>
-            <p className="text-lg text-[#354F52] font-semibold mt-2">
-              Email: <span className="font-normal">{user.email}</span>
-            </p>
-            <p className="text-lg text-[#354F52] font-semibold mt-2">
-              Bio:{" "}
-              <span className="font-normal">
-                {user.bio || "No bio provided."}
-              </span>
-            </p>
-          </div>
+
+      <div className="flex flex-col sm:flex-row items-start gap-4">
+        <img
+          src={user?.image || "/default-avatar.png"}
+          alt="Profile"
+          className="w-24 h-24 rounded-full object-cover"
+        />
+        <div>
+          <p className="text-lg text-[#354F52] font-semibold">
+            Name: <span className="font-normal">{user.name}</span>
+          </p>
+          <p className="text-lg text-[#354F52] font-semibold mt-2">
+            Email: <span className="font-normal">{user.email}</span>
+          </p>
+          <p className="text-lg text-[#354F52] font-semibold mt-2">
+            Bio:{" "}
+            <span className="font-normal">
+              {user.bio || "No bio provided."}
+            </span>
+          </p>
         </div>
-      )}
+      </div>
     </div>
   );
-  
-};
-
-export default Profile;
+}

@@ -2,7 +2,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Wishlist from "../components/Wishlist";
 
-export default function Layout({ children }) {
+export default function Layout({ }) {
     return (
       <div className="bg-blue-400 min-h-screen flex flex-col">
         <Navbar/>
