@@ -58,7 +58,7 @@ const ItemList = ({ selectedCategory }) => {
 
   const handleAddToWishlist = async (product) => {
     if (wishlist.includes(product._id)) return;
-
+  
     try {
       const res = await fetch("/api/wishlist", {
         method: "POST",
@@ -71,33 +71,59 @@ const ItemList = ({ selectedCategory }) => {
           description: product.description,
         }),
       });
-
+  
       const data = await res.json();
-
+  
       if (res.ok) {
         setWishlist((prev) => [...prev, product._id]);
         setStatus(`${product.name} added to wishlist!`);
-
-        setTimeout(() => {
-          router.push("/wishlist");
-        }, 800);
       } else {
-        console.warn("Backend response error:", data);
-        setStatus(`${data.error}`);
-        setTimeout(() => setStatus(""), 2000);
+        setStatus(data.error || "Could not add to wishlist.");
       }
+  
+      setTimeout(() => setStatus(""), 2000);
     } catch (error) {
       console.error("Frontend error:", error);
       setStatus("Failed to add to wishlist.");
       setTimeout(() => setStatus(""), 2000);
     }
   };
+  
+
+  const handleAddToCart = async (product) => {
+    try {
+      const res = await fetch("/api/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: product._id,
+          name: product.name,
+          price: product.price.replace("$", ""),
+        }),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        setStatus(`${product.name} added to cart!`);
+      } else {
+        setStatus(data.error || "Could not add to cart.");
+      }
+  
+      setTimeout(() => setStatus(""), 1500);
+    } catch (err) {
+      console.error("Add to cart error:", err);
+      setStatus("Something went wrong.");
+      setTimeout(() => setStatus(""), 1500);
+    }
+  };
+  
 
   return (
     <div className="px-4 py-6">
       {status && <p className="text-green-600 font-medium mb-4">{status}</p>}
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {filteredProducts.map((product) => (
           <div
             key={product._id}
@@ -107,31 +133,30 @@ const ItemList = ({ selectedCategory }) => {
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-32 object-center object-contain rounded-md mb-4"
+                className="w-full h-32 object-contain mb-3 rounded"
               />
-              <h3 className="text-lg font-semibold text-black">
-                {product.name}
-              </h3>
+              <h3 className="text-lg font-semibold text-black">{product.name}</h3>
               <p className="text-sm text-gray-500">{product.description}</p>
               <p className="mt-2 font-bold text-gray-800">{product.price}</p>
             </Link>
 
             <div className="flex flex-col gap-2 mt-3">
-              <button className="bg-blue-500 text-white py-1 px-4 hover:bg-blue-600">
+              <button
+                onClick={() => handleAddToCart(product)}
+                className="bg-blue-500 text-white py-1 px-4 hover:bg-blue-600"
+              >
                 Add to Cart
               </button>
               <button
                 onClick={() => handleAddToWishlist(product)}
                 disabled={wishlist.includes(product._id)}
-                className={`bg-green-400 text-white py-1 px-4 hover:bg-pink-600 transition ${
+                className={`py-1 px-4 text-white transition ${
                   wishlist.includes(product._id)
-                    ? "opacity-50 cursor-not-allowed"
-                    : ""
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-pink-500 hover:bg-pink-600"
                 }`}
               >
-                {wishlist.includes(product._id)
-                  ? "In Wishlist"
-                  : "Add to Wishlist"}
+                {wishlist.includes(product._id) ? "In Wishlist" : "Add to Wishlist"}
               </button>
             </div>
           </div>

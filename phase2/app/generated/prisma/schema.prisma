@@ -9,9 +9,16 @@ datasource db {
 }
 
 model WishlistItem {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  productId   String   @unique
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  productId   String @unique
   name        String
-  description String?
-  createdAt   DateTime @default(now())
+  description String
+}
+
+model Product {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  price       String
+  image       String
 }

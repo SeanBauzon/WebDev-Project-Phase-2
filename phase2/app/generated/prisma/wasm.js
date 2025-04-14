@@ -114,8 +114,15 @@ exports.Prisma.WishlistItemScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
   name: 'name',
+  description: 'description'
+};
+
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
   description: 'description',
-  createdAt: 'createdAt'
+  price: 'price',
+  image: 'image'
 };
 
 exports.Prisma.SortOrder = {
@@ -130,7 +137,8 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  WishlistItem: 'WishlistItem'
+  WishlistItem: 'WishlistItem',
+  Product: 'Product'
 };
 
 /**

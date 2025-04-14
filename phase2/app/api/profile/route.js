@@ -3,7 +3,6 @@ export async function GET() {
       name: "Bob Dylan",
       email: "bobdylan@sait.com",
       bio: "Hi i am a student at sait",
-      image: ""
     };
   
     return Response.json(user);

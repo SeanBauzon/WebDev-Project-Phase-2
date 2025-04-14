@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
 }
 
 datasource db {
@@ -12,6 +11,32 @@ model WishlistItem {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   productId   String   @unique
   name        String
-  description String?
-  createdAt   DateTime @default(now())
+  description String
 }
+
+model Product {
+  id          String   @id @map("_id")
+  name        String
+  description String
+  price       Float
+  image       String
+  category    String
+}
+
+model CartItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId String
+  name      String
+  price     Float
+  quantity  Int
+}
+
+model Review {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId String
+  name      String
+  rating    Int
+  comment   String
+}
+
+

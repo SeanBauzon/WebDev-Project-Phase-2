@@ -29,30 +29,39 @@ const Profile = () => {
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6 mt-8">
       <h2 className="text-2xl font-bold text-[#2F3E46] mb-4">My Profile</h2>
-
-      <div className="flex flex-col sm:flex-row items-start gap-4">
-        <img
-          src={user.image || "/images/default-profile.png"}
-          alt="Profile"
-          className="w-28 h-28 object-cover rounded-full border-2 border-[#52796F]"
-        />
-        <div>
-          <p className="text-lg text-[#354F52] font-semibold">
-            Name: <span className="font-normal">{user.name}</span>
-          </p>
-          <p className="text-lg text-[#354F52] font-semibold mt-2">
-            Email: <span className="font-normal">{user.email}</span>
-          </p>
-          <p className="text-lg text-[#354F52] font-semibold mt-2">
-            Bio:{" "}
-            <span className="font-normal">
-              {user.bio || "No bio provided."}
-            </span>
-          </p>
+  
+      {loading ? (
+        <p className="text-gray-500">Loading profile...</p>
+      ) : error ? (
+        <p className="text-red-500">Error: {error}</p>
+      ) : !user ? (
+        <p className="text-gray-500">User not found.</p>
+      ) : (
+        <div className="flex flex-col sm:flex-row items-start gap-4">
+          <img
+            src={user.image || "/default-avatar.png"}
+            alt="Profile"
+            className="w-24 h-24 rounded-full"
+          />
+          <div>
+            <p className="text-lg text-[#354F52] font-semibold">
+              Name: <span className="font-normal">{user.name}</span>
+            </p>
+            <p className="text-lg text-[#354F52] font-semibold mt-2">
+              Email: <span className="font-normal">{user.email}</span>
+            </p>
+            <p className="text-lg text-[#354F52] font-semibold mt-2">
+              Bio:{" "}
+              <span className="font-normal">
+                {user.bio || "No bio provided."}
+              </span>
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
+  
 };
 
 export default Profile;

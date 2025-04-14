@@ -1,41 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: "1",
-      name: "Gaming Monitor",
-      price: 249.99,
-      quantity: 1,
-    },
-    {
-      id: "2",
-      name: "Wireless Mouse",
-      price: 49.99,
-      quantity: 2,
-    },
-  ]);
+  const [cartItems, setCartItems] = useState([]);
 
-  const handleQuantityChange = (id, amount) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + amount) }
-          : item
-      )
-    );
-  };
+  useEffect(() => {
+    fetch("/api/cart")
+      .then((res) => res.json())
+      .then((data) => setCartItems(data))
+      .catch((err) => console.error("Failed to load cart", err));
+  }, []);
 
-  const removeItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md max-w-3xl mx-auto">
@@ -55,28 +32,7 @@ const Cart = () => {
                 <p className="text-sm text-gray-500">
                   ${item.price.toFixed(2)}
                 </p>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => handleQuantityChange(item.id, -1)}
-                  className="px-2 bg-gray-200 hover:bg-gray-300 rounded"
-                >
-                  -
-                </button>
-                <span>{item.quantity}</span>
-                <button
-                  onClick={() => handleQuantityChange(item.id, 1)}
-                  className="px-2 bg-gray-200 hover:bg-gray-300 rounded"
-                >
-                  +
-                </button>
-                <button
-                  onClick={() => removeItem(item.id)}
-                  className="ml-3 text-red-500 hover:underline"
-                >
-                  Remove
-                </button>
+                <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
               </div>
             </div>
           ))}
