@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
-import ItemList from "./components/Itemlist.jsx";
-import SearchBar from "./components/Searchbar.jsx";
-import Filter from "./components/Filter.jsx";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Itemlist from "./components/Itemlist";
+import Searchbar from "./components/Searchbar";
+import Filter from "./components/Filter";
 
-export default function Layout({ children }) {
+export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -16,9 +16,8 @@ export default function Layout({ children }) {
       {/* Navbar */}
       <Navbar />
 
-      {/* Filter + Search */}
+      {/* Filter and Search */}
       <div className="flex justify-center items-center px-4 bg-blue-800 border-white border-1 py-4">
-        {/* Category Filter */}
         <div className="w-1/4">
           <Filter
             selectedCategory={selectedCategory}
@@ -26,17 +25,16 @@ export default function Layout({ children }) {
           />
         </div>
 
-        {/* SearchBar */}
         <div className="w-2/4 flex justify-center">
-          <SearchBar onSearch={(term) => setSearchTerm(term)} />
+          <Searchbar onSearch={(term) => setSearchTerm(term)} />
         </div>
 
         <div className="w-1/4" />
       </div>
 
-      {/* Item List */}
+      {/* Product Items */}
       <main className="flex-grow bg-blue-300">
-        <ItemList selectedCategory={selectedCategory} searchTerm={searchTerm} />
+        <Itemlist selectedCategory={selectedCategory} searchTerm={searchTerm} />
       </main>
 
       {/* Footer */}
