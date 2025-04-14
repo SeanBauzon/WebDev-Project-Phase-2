@@ -41,8 +41,14 @@ const Cart = () => {
             <p className="text-xl font-bold text-[#2F3E46]">
               Total: ${total.toFixed(2)}
             </p>
-            <button className="mt-4 bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700">
-              Checkout
+            <button className="mt-4 ml-4 bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700">
+              Debit/Credit
+            </button>
+            <button className="mt-4 ml-4 bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700">
+              Paypal
+            </button>
+            <button className="mt-4 ml-4 bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700">
+              Apple Pay
             </button>
           </div>
         </div>

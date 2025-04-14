@@ -1,4 +1,3 @@
-// app/ProductPage/[id]/page.jsx
 import prisma from "../../lib/prisma";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";

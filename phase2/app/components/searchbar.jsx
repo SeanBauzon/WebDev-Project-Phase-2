@@ -7,7 +7,13 @@ export default function SearchBar({ onSearch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(input);
+
+    const trimmed = input.trim();
+    if (trimmed.length > 0) {
+      onSearch(trimmed);
+    } else {
+      onSearch(""); // Clear results if input is empty
+    }
   };
 
   return (
@@ -18,7 +24,7 @@ export default function SearchBar({ onSearch }) {
           placeholder="Search products..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="w-100 pl-5 pr-12 py-3 text-sm text-gray-800 border border-gray-300 rounded-full bg-amber-50"
+          className="w-full pl-5 pr-12 py-3 text-sm text-gray-800 border border-gray-300 rounded-full bg-amber-50"
         />
         <button
           type="submit"

@@ -1,5 +1,5 @@
-import Footer from "../components/footer";
-import Navbar from "../components/navbar";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 import Wishlist from "../components/Wishlist";
 
 export default function Layout({ children }) {

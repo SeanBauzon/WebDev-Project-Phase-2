@@ -5,7 +5,7 @@ export async function GET() {
     const items = await prisma.wishlistItem.findMany();
     return Response.json(items);
   } catch (err) {
-    console.error("❌ Error in GET /api/wishlist:", err);
+    console.error("Error in GET /api/wishlist:", err);
     return new Response(JSON.stringify({ error: "Server error" }), { status: 500 });
   }
 }

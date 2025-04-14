@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-
-const ItemList = ({ selectedCategory }) => {
+const ItemList = ({ selectedCategory, searchTerm = "" }) => {
   const mockProducts = [
     {
       _id: "1",
@@ -50,9 +49,16 @@ const ItemList = ({ selectedCategory }) => {
     },
   ];
 
-  const filteredProducts = selectedCategory
-    ? mockProducts.filter((p) => p.category === selectedCategory)
-    : mockProducts;
+  const filteredProducts = mockProducts.filter((product) => {
+    const matchesCategory = selectedCategory
+      ? product.category === selectedCategory
+      : true;
+    const matchesSearch = product.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
 
   const [wishlist, setWishlist] = useState([]);
   const [status, setStatus] = useState("");
@@ -60,7 +66,7 @@ const ItemList = ({ selectedCategory }) => {
 
   const handleAddToWishlist = async (product) => {
     if (wishlist.includes(product._id)) return;
-  
+
     try {
       const res = await fetch("/api/wishlist", {
         method: "POST",
@@ -73,16 +79,16 @@ const ItemList = ({ selectedCategory }) => {
           description: product.description,
         }),
       });
-  
+
       const data = await res.json();
-  
+
       if (res.ok) {
         setWishlist((prev) => [...prev, product._id]);
         setStatus(`${product.name} added to wishlist!`);
       } else {
         setStatus(data.error || "Could not add to wishlist.");
       }
-  
+
       setTimeout(() => setStatus(""), 2000);
     } catch (error) {
       console.error("Frontend error:", error);
@@ -90,7 +96,6 @@ const ItemList = ({ selectedCategory }) => {
       setTimeout(() => setStatus(""), 2000);
     }
   };
-  
 
   const handleAddToCart = async (product) => {
     try {
@@ -103,15 +108,15 @@ const ItemList = ({ selectedCategory }) => {
           price: product.price.replace("$", ""),
         }),
       });
-  
+
       const data = await res.json();
-  
+
       if (res.ok) {
         setStatus(`${product.name} added to cart!`);
       } else {
         setStatus(data.error || "Could not add to cart.");
       }
-  
+
       setTimeout(() => setStatus(""), 1500);
     } catch (err) {
       console.error("Add to cart error:", err);
@@ -119,7 +124,6 @@ const ItemList = ({ selectedCategory }) => {
       setTimeout(() => setStatus(""), 1500);
     }
   };
-  
 
   return (
     <div className="px-4 py-6">
@@ -143,35 +147,37 @@ const ItemList = ({ selectedCategory }) => {
             </Link>
 
             <div className="flex gap-3 mt-3 justify-center">
-            {/* Add to Cart */}
-            <button className="hover:scale-105 transition-transform">
-              <Image
-                src="/shopping.svg"
-                alt="Add to Cart"
-                width={32}
-                height={32}
-              />
-            </button>
+              {/* Add to Cart */}
+              <button
+                onClick={() => handleAddToCart(product)}
+                className="hover:scale-105 transition-transform"
+              >
+                <Image
+                  src="/shopping.svg"
+                  alt="Add to Cart"
+                  width={32}
+                  height={32}
+                />
+              </button>
 
-            {/* Add to Wishlist */}
-            <button
-              onClick={() => handleAddToWishlist(product)}
-              disabled={wishlist.includes(product._id)}
-              className={`hover:scale-105 transition-transform ${
-                wishlist.includes(product._id)
-                  ? "opacity-50 cursor-not-allowed"
-                  : ""
-              }`}
-            >
-              <Image
-                src="/wishlist.svg"
-                alt="Add to Wishlist"
-                width={32}
-                height={32}
-              />
-            </button>
-          </div>
-
+              {/* Add to Wishlist */}
+              <button
+                onClick={() => handleAddToWishlist(product)}
+                disabled={wishlist.includes(product._id)}
+                className={`hover:scale-105 transition-transform ${
+                  wishlist.includes(product._id)
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
+                }`}
+              >
+                <Image
+                  src="/wishlist.svg"
+                  alt="Add to Wishlist"
+                  width={32}
+                  height={32}
+                />
+              </button>
+            </div>
           </div>
         ))}
       </div>
