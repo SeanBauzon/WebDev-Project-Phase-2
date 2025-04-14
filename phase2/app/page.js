@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Footer from "./components/Footer";
-import Navbar from "./components/NavBar";
-import ItemList from "./components/ItemList";
-import SearchBar from "./components/SearchBar";
+import Navbar from "./components/Navbar";
+import Itemlist from "./components/Itemlist";
+import Searchbar from "./components/Searchbar";
 import Filter from "./components/Filter";
 
 export default function Layout({ children }) {
@@ -28,7 +28,7 @@ export default function Layout({ children }) {
 
         {/* SearchBar */}
         <div className="w-2/4 flex justify-center">
-          <SearchBar onSearch={(term) => setSearchTerm(term)} />
+          <Searchbar onSearch={(term) => setSearchTerm(term)} />
         </div>
 
         <div className="w-1/4" />
@@ -36,7 +36,7 @@ export default function Layout({ children }) {
 
       {/* Item List */}
       <main className="flex-grow bg-blue-300">
-        <ItemList selectedCategory={selectedCategory} searchTerm={searchTerm} />
+        <Itemlist selectedCategory={selectedCategory} searchTerm={searchTerm} />
       </main>
 
       {/* Footer */}
